@@ -9,11 +9,11 @@ import com.cdev.showtracker.model.Category
  */
 
 class CategoryContract {
-    interface CategoryPresenter : BasePresenter<CategoryView> {
+    interface Presenter : BasePresenter<View> {
         fun loadCategories()
     }
 
-    interface CategoryView : BaseView {
+    interface View : BaseView {
         fun displayCategories(listOfCategories: List<Category>)
         fun displayEmptyState()
     }
