@@ -4,9 +4,6 @@ import com.cdev.showtracker.category.CategoryPresenter
 import dagger.Module
 import dagger.Provides
 
-/**
- * Created by cdev on 05.02.2017.
- */
 @Module
 class PresenterModule {
 

@@ -3,10 +3,9 @@ package com.cdev.showtracker
 import android.app.Application
 import com.cdev.showtracker.injection.DaggerPresenterComponent
 import com.cdev.showtracker.injection.PresenterComponent
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
-/**
- * Created by cdev on 05.02.2017.
- */
+
 class BaseApplication : Application() {
 
     companion object {
@@ -15,6 +14,12 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        )
         presenterComponent = DaggerPresenterComponent.builder().build()
     }
 }

@@ -9,11 +9,7 @@ import com.cdev.showtracker.model.TvShow
 import kotlinx.android.synthetic.main.item_tv_show_card.view.*
 import java.util.*
 
-
-/**
- * Created by cdev on 05.02.2017.
- */
-class CategoryAdapter() : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private val tvShowList: ArrayList<TvShow> = ArrayList()
 

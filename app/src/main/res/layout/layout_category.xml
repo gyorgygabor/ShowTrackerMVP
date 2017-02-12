@@ -8,8 +8,7 @@
         android:id="@+id/tvCategoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_normal"
-        android:text="Popular"
+        android:layout_marginBottom="@dimen/space_small"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/text_extra_big" />
 

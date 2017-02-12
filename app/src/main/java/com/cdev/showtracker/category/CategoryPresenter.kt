@@ -3,9 +3,6 @@ package com.cdev.showtracker.category
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
 
-/**
- * Created by cdev on 05.02.2017.
- */
 class CategoryPresenter : CategoryContract.Presenter {
 
     private var view: CategoryContract.View? = null
