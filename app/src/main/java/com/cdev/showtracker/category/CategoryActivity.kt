@@ -1,14 +1,13 @@
 package com.cdev.showtracker.category
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.cdev.showtracker.BaseApplication
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.Category
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import javax.inject.Inject
 
 class CategoryActivity : AppCompatActivity(), CategoryContract.View {
@@ -20,11 +19,12 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        BaseApplication.presenterComponent.inject(this)
         setSupportActionBar(toolbar)
 
         presenter.attachView(this)
         presenter.loadCategories()
+
+        //BaseApplication.tvShowRepositoryComponent.
     }
 
     override fun displayCategories(listOfCategories: List<Category>) {
@@ -41,12 +41,16 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
 
     }
 
+    override fun showProgressBar() {
+        progressBar.visibility = VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressBar.visibility = GONE
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView()
-    }
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(base))
     }
 }

@@ -11,6 +11,8 @@ class CategoryContract {
     }
 
     interface View : BaseView {
+        fun showProgressBar()
+        fun hideProgressBar()
         fun displayCategories(listOfCategories: List<Category>)
         fun displayEmptyState()
     }

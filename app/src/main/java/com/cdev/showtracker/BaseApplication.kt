@@ -1,15 +1,15 @@
 package com.cdev.showtracker
 
 import android.app.Application
-import com.cdev.showtracker.injection.DaggerPresenterComponent
-import com.cdev.showtracker.injection.PresenterComponent
+import com.cdev.showtracker.data.DaggerTvShowRepositoryComponent
+import com.cdev.showtracker.data.TvShowRepositoryComponent
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 class BaseApplication : Application() {
 
     companion object {
-        lateinit var presenterComponent: PresenterComponent
+        lateinit var tvShowRepositoryComponent: TvShowRepositoryComponent
     }
 
     override fun onCreate() {
@@ -20,6 +20,13 @@ class BaseApplication : Application() {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         )
-        presenterComponent = DaggerPresenterComponent.builder().build()
+
+        tvShowRepositoryComponent = DaggerTvShowRepositoryComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .build()
+    }
+
+    fun getTvShowRepositoryComponent(): TvShowRepositoryComponent {
+        return tvShowRepositoryComponent
     }
 }

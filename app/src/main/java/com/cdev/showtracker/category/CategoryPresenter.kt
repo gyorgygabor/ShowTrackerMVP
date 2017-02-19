@@ -1,11 +1,18 @@
 package com.cdev.showtracker.category
 
+import com.cdev.showtracker.data.TvShowRepository
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
+import javax.inject.Inject
 
-class CategoryPresenter : CategoryContract.Presenter {
-
+class CategoryPresenter @Inject constructor(repository: TvShowRepository) : CategoryContract.Presenter {
     private var view: CategoryContract.View? = null
+    private var repository: TvShowRepository
+
+    init {
+        this.repository = repository
+    }
+
 
     override fun attachView(view: CategoryContract.View) {
         this.view = view
@@ -26,5 +33,4 @@ class CategoryPresenter : CategoryContract.Presenter {
 
         view?.displayCategories(listOf(category1, category2, category3))
     }
-
 }
