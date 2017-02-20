@@ -3,7 +3,6 @@ package com.cdev.showtracker
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class ApplicationModule(applicationContext: Context) {
@@ -14,7 +13,6 @@ class ApplicationModule(applicationContext: Context) {
     }
 
     @Provides
-    @Singleton
     fun provideApplicationContext(): Context {
         return context
     }

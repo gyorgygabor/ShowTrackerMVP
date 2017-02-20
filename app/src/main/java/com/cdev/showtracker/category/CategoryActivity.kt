@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.cdev.showtracker.BaseApplication
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.Category
 import kotlinx.android.synthetic.main.activity_category.*
@@ -24,7 +25,10 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
         presenter.attachView(this)
         presenter.loadCategories()
 
-        //BaseApplication.tvShowRepositoryComponent.
+        DaggerCategoryComponent.builder()
+                .tvShowRepositoryComponent(BaseApplication.tvShowRepositoryComponent)
+                .categoryPresenterModule(CategoryPresenterModule()).build()
+                .inject(this)
     }
 
     override fun displayCategories(listOfCategories: List<Category>) {
