@@ -1,6 +1,7 @@
 package com.cdev.showtracker.injection
 
 import android.content.Context
+import com.cdev.showtracker.network.RestApi
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -46,11 +47,13 @@ class NetModule(baseUrl: String) {
 
     @Provides
     @Singleton
-    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): RestApi {
+        var retrofit: Retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .build()
+
+        return retrofit.create(RestApi::class.java)
     }
 }

@@ -1,5 +1,6 @@
 package com.cdev.showtracker.category
 
+import com.cdev.showtracker.data.TvShowDataSource
 import com.cdev.showtracker.data.TvShowRepository
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
@@ -23,6 +24,16 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
     }
 
     override fun loadCategories() {
+        repository.getCategories(object : TvShowDataSource.LoadCategoriesCallback {
+            override fun onCategoriesLoaded(list: List<Category>) {
+                view?.displayCategories(list)
+            }
+
+            override fun onDataNotAvailable() {
+                view?.displayEmptyState()
+            }
+
+        })
         val tvShows1: List<TvShow> = listOf(TvShow("Friends", 2))
         val tvShows2: List<TvShow> = listOf(TvShow("How I met your mother", 2))
         val tvShows3: List<TvShow> = listOf(TvShow("Walking dead", 2))

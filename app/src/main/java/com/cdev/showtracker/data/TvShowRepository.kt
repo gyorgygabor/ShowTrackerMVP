@@ -11,6 +11,6 @@ class TvShowRepository @Inject constructor(remoteDataSource: TvShowRemoteDataSou
     }
 
     override fun getCategories(callback: TvShowDataSource.LoadCategoriesCallback) {
-
+        remoteDataSource.getCategories(callback)
     }
 }
