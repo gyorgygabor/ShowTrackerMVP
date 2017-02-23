@@ -3,7 +3,7 @@ package com.cdev.showtracker.category
 import com.cdev.showtracker.data.TvShowDataSource
 import com.cdev.showtracker.data.TvShowRepository
 import com.cdev.showtracker.model.Category
-import com.cdev.showtracker.model.TvShow
+import java.util.*
 import javax.inject.Inject
 
 class CategoryPresenter @Inject constructor(repository: TvShowRepository) : CategoryContract.Presenter {
@@ -25,23 +25,17 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
 
     override fun loadCategories() {
         repository.getCategories(object : TvShowDataSource.LoadCategoriesCallback {
-            override fun onCategoriesLoaded(list: List<Category>) {
-                view?.displayCategories(list)
+            override fun onCategoryLoaded(category: Category) {
+
+                // TODO merge multiple categories with RxJava
+                val categoryList = ArrayList<Category>()
+                categoryList.add(category)
+                view?.displayCategories(categoryList)
             }
 
             override fun onDataNotAvailable() {
                 view?.displayEmptyState()
             }
-
         })
-        val tvShows1: List<TvShow> = listOf(TvShow("Friends", 2))
-        val tvShows2: List<TvShow> = listOf(TvShow("How I met your mother", 2))
-        val tvShows3: List<TvShow> = listOf(TvShow("Walking dead", 2))
-
-        val category1 = Category("Popular", tvShows1)
-        val category2 = Category("Highly rated", tvShows2)
-        val category3 = Category("Trending", tvShows3)
-
-        view?.displayCategories(listOf(category1, category2, category3))
     }
 }

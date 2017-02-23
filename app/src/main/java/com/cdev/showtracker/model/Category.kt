@@ -1,7 +1,6 @@
 package com.cdev.showtracker.model
 
-/**
- * Created by cdev on 05.02.2017.
- */
-data class Category(val name: String, val tvShows: List<TvShow>)
+import com.google.gson.annotations.SerializedName
+
+data class Category(val name: String, @SerializedName("results") val tvShows: List<TvShow>)
 

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.TvShow
+import com.cdev.showtracker.network.ApiConfig
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_tv_show_card.view.*
 import java.util.*
 
@@ -36,7 +38,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         fun bindTvShowItem(tvShowItem: TvShow) {
             with(tvShowItem) {
                 itemView.tvTitle.text = name
-                //itemView.imgPoster.setImageResource(imagePoster)
+                Picasso.with(itemView.context)
+                        // TODO concat the IMG_BASE_URL somewhere else
+                        .load(ApiConfig.IMG_BASE_URL + imagePath)
+                        .into(itemView.imgPoster)
             }
         }
     }

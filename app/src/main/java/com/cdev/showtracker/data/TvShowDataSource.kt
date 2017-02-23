@@ -5,7 +5,7 @@ import com.cdev.showtracker.model.Category
 interface TvShowDataSource {
 
     interface LoadCategoriesCallback {
-        fun onCategoriesLoaded(list: List<Category>)
+        fun onCategoryLoaded(category: Category)
         fun onDataNotAvailable()
     }
 

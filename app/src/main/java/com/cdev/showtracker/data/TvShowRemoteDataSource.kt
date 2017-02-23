@@ -1,28 +1,33 @@
 package com.cdev.showtracker.data
 
 import com.cdev.showtracker.model.Category
-import com.cdev.showtracker.network.RestApi
+import com.cdev.showtracker.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class TvShowRemoteDataSource @Inject constructor(restApi: RestApi) : TvShowDataSource {
-    var restApi: RestApi
+class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvShowDataSource {
+    // TODO Create a base call that will inject this key into every call
+    var apiService: ApiService
 
     init {
-        this.restApi = restApi
+        this.apiService = apiService
     }
 
     override fun getCategories(callback: TvShowDataSource.LoadCategoriesCallback) {
-        var call: Call<List<Category>> = restApi.getCategories()
-        call.enqueue(object : Callback<List<Category>> {
-            override fun onFailure(call: Call<List<Category>>?, t: Throwable?) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val call: Call<Category> = apiService.getCategories()
+        call.enqueue(object : Callback<Category> {
+            override fun onResponse(call: Call<Category>?, response: Response<Category>?) {
+                when (response?.isSuccessful) {
+                // TODO Refactor Category to have an empty ctr (check if data class can have multiple constructors)
+                    true -> callback.onCategoryLoaded(response?.body() ?: Category("Empty", emptyList()))
+                    false -> callback.onDataNotAvailable()
+                }
             }
 
-            override fun onResponse(call: Call<List<Category>>?, response: Response<List<Category>>?) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onFailure(call: Call<Category>?, t: Throwable?) {
+                callback.onDataNotAvailable()
             }
         })
     }

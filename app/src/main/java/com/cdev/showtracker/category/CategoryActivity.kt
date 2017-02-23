@@ -22,13 +22,13 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
 
         setSupportActionBar(toolbar)
 
-        presenter.attachView(this)
-        presenter.loadCategories()
-
         DaggerCategoryComponent.builder()
                 .tvShowRepositoryComponent(BaseApplication.tvShowRepositoryComponent)
                 .categoryPresenterModule(CategoryPresenterModule()).build()
                 .inject(this)
+
+        presenter.attachView(this)
+        presenter.loadCategories()
     }
 
     override fun displayCategories(listOfCategories: List<Category>) {

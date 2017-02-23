@@ -1,8 +1,8 @@
 package com.cdev.showtracker.data
 
+import com.cdev.showtracker.network.ApiService
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +16,7 @@ class TvShowRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideTvShowRemoteDataSource(retrofit: Retrofit): TvShowRemoteDataSource {
-        return TvShowRemoteDataSource(retrofit)
+    fun provideTvShowRemoteDataSource(apiService: ApiService): TvShowRemoteDataSource {
+        return TvShowRemoteDataSource(apiService)
     }
 }
