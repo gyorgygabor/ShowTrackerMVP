@@ -1,13 +1,9 @@
 package com.cdev.showtracker.data
 
 import com.cdev.showtracker.model.Category
+import io.reactivex.Observable
 
 interface TvShowDataSource {
 
-    interface LoadCategoriesCallback {
-        fun onCategoryLoaded(category: Category)
-        fun onDataNotAvailable()
-    }
-
-    fun getCategories(callback: LoadCategoriesCallback)
+    fun getCategories(): Observable<Category>
 }

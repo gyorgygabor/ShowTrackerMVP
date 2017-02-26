@@ -1,5 +1,7 @@
 package com.cdev.showtracker.data
 
+import com.cdev.showtracker.model.Category
+import io.reactivex.Observable
 import javax.inject.Inject
 
 class TvShowRepository @Inject constructor(remoteDataSource: TvShowRemoteDataSource) : TvShowDataSource {
@@ -10,7 +12,8 @@ class TvShowRepository @Inject constructor(remoteDataSource: TvShowRemoteDataSou
         this.remoteDataSource = remoteDataSource
     }
 
-    override fun getCategories(callback: TvShowDataSource.LoadCategoriesCallback) {
-        remoteDataSource.getCategories(callback)
+    override fun getCategories(): Observable<Category> {
+        return remoteDataSource.getCategories()
     }
+
 }

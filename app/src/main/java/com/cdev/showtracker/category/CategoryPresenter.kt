@@ -1,9 +1,7 @@
 package com.cdev.showtracker.category
 
-import com.cdev.showtracker.data.TvShowDataSource
 import com.cdev.showtracker.data.TvShowRepository
-import com.cdev.showtracker.model.Category
-import java.util.*
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class CategoryPresenter @Inject constructor(repository: TvShowRepository) : CategoryContract.Presenter {
@@ -24,18 +22,13 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
     }
 
     override fun loadCategories() {
-        repository.getCategories(object : TvShowDataSource.LoadCategoriesCallback {
-            override fun onCategoryLoaded(category: Category) {
-
-                // TODO merge multiple categories with RxJava
-                val categoryList = ArrayList<Category>()
-                categoryList.add(category)
-                view?.displayCategories(categoryList)
-            }
-
-            override fun onDataNotAvailable() {
-                view?.displayEmptyState()
-            }
-        })
+        // TODO merge multiple categories into a list, handle unsubscription
+        view?.showProgressBar()
+        repository.getCategories()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    category ->
+                    view?.displayCategories(arrayListOf(category))
+                }
     }
 }
