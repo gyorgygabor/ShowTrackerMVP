@@ -7,5 +7,5 @@ import dagger.Component
 @ActivityScope
 @Component(dependencies = arrayOf(TvShowRepositoryComponent::class), modules = arrayOf(CategoryPresenterModule::class))
 interface CategoryComponent {
-    fun inject(categoryActivity: CategoryActivity)
+    fun inject(categoryActivity: CategoryFragment)
 }

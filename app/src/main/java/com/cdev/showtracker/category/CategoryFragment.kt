@@ -1,40 +1,52 @@
 package com.cdev.showtracker.category
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import com.cdev.showtracker.BaseApplication
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.util.snack
-import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.layout_toolbar.*
+import kotlinx.android.synthetic.main.fragment_category.*
 import javax.inject.Inject
 
-class CategoryActivity : AppCompatActivity(), CategoryContract.View {
+class CategoryFragment : Fragment(), CategoryContract.View {
 
     @Inject
     lateinit var presenter: CategoryPresenter
 
+    companion object {
+        fun newInstance(): CategoryFragment {
+            return CategoryFragment()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_category)
-
-        setSupportActionBar(toolbar)
 
         DaggerCategoryComponent.builder()
                 .tvShowRepositoryComponent(BaseApplication.tvShowRepositoryComponent)
                 .categoryPresenterModule(CategoryPresenterModule()).build()
                 .inject(this)
+    }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_category, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         presenter.loadCategories()
     }
 
     override fun displayCategories(listOfCategories: List<Category>) {
         for (category in listOfCategories) {
-            val categoryViewGroup: CategoryViewGroup = CategoryViewGroup(this)
+            val categoryViewGroup: CategoryViewGroup = CategoryViewGroup(container.context)
             categoryViewGroup.setData(category)
             container.addView(categoryViewGroup)
         }
