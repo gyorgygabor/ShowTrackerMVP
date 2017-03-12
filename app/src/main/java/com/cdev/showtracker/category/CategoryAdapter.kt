@@ -40,7 +40,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
                 itemView.tvTitle.text = name
                 Picasso.with(itemView.context)
                         // TODO concat the IMG_BASE_URL somewhere else
-                        .load(ApiConfig.IMG_BASE_URL + imagePath)
+                        .load(ApiConfig.IMG_BASE_URL + posterPath)
                         .into(itemView.imgPoster)
             }
         }

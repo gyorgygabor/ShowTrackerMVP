@@ -7,4 +7,5 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class TvShow(@SerializedName("name") val name: String,
-                  @SerializedName("backdrop_path") val imagePath: String)
+                  @SerializedName("poster_path") val posterPath: String,
+                  @SerializedName("backdrop_path") val backdropPath: String)

@@ -44,8 +44,8 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
 
     }
 
-    override fun displayError(error: String) {
-        rootView.snack(error)
+    override fun displayError(error: String?) {
+        rootView.snack(error ?: getString(R.string.error_something_went_wrong))
     }
 
     override fun showProgressBar() {

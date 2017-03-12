@@ -14,6 +14,7 @@
             android:id="@+id/imgPoster"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tv_show_card_image_height"
+            android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher" />
 
         <TextView

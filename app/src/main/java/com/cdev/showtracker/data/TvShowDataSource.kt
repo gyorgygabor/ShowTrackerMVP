@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 interface TvShowDataSource {
 
-    fun getCategories(): Observable<Category>
+    fun getCategories(categoryNames: List<String>): Observable<Category>
 }

@@ -9,7 +9,23 @@ class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvSho
     // TODO Create a base call that will inject this key into every call
     var apiService: ApiService = apiService
 
-    override fun getCategories(): Observable<Category> {
-        return Observable.concat(apiService.getCategoryPopular(), apiService.getCategoryTopRated())
+    override fun getCategories(categoryNames: List<String>): Observable<Category> {
+        return Observable.concat(
+                apiService.getCategoryPopular().map { category ->
+                    category.name = categoryNames[0]
+                    category // return
+                },
+                apiService.getCategoryTopRated().map { category ->
+                    category.name = categoryNames[1]
+                    category // return
+                },
+                apiService.getCategoryOnTheAir().map { category ->
+                    category.name = categoryNames[2]
+                    category // return
+                },
+                apiService.getCategoryLatest().map { category ->
+                    category.name = categoryNames[3]
+                    category // return
+                })
     }
 }

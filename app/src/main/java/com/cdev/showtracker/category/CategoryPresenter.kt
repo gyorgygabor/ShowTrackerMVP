@@ -15,21 +15,17 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
         this.view = view
     }
 
-    override fun detachView() {
-        view = null
-    }
-
     override fun loadCategories() {
         view?.showProgressBar()
         val categoryList: ArrayList<Category> = ArrayList()
 
-        repository.getCategories()
+        repository.getCategories(listOf("Popular", "Top rated", "On the Air", "Latest"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { category -> categoryList.add(category) },
+                        { category -> categoryList.add(category)},
                         {
                             e ->
-                            view?.displayError(e.message ?: "Something went wrong")
+                            view?.displayError(e.message)
                             view?.hideProgressBar()
                         },
                         {
@@ -37,5 +33,9 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
                             view?.hideProgressBar()
                         }
                 )
+    }
+
+    override fun detachView() {
+        view = null
     }
 }

@@ -8,8 +8,8 @@ class TvShowRepository @Inject constructor(remoteDataSource: TvShowRemoteDataSou
 
     private val remoteDataSource: TvShowRemoteDataSource = remoteDataSource
 
-    override fun getCategories(): Observable<Category> {
-        return remoteDataSource.getCategories()
+    override fun getCategories(categoryNames: List<String>): Observable<Category> {
+        return remoteDataSource.getCategories(categoryNames)
     }
 
 }
