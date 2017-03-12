@@ -6,11 +6,7 @@ import javax.inject.Inject
 
 class TvShowRepository @Inject constructor(remoteDataSource: TvShowRemoteDataSource) : TvShowDataSource {
 
-    private val remoteDataSource: TvShowRemoteDataSource
-
-    init {
-        this.remoteDataSource = remoteDataSource
-    }
+    private val remoteDataSource: TvShowRemoteDataSource = remoteDataSource
 
     override fun getCategories(): Observable<Category> {
         return remoteDataSource.getCategories()

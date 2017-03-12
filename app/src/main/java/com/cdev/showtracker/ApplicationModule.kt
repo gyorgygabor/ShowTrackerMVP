@@ -6,11 +6,7 @@ import dagger.Provides
 
 @Module
 class ApplicationModule(applicationContext: Context) {
-    var context: Context
-
-    init {
-        this.context = applicationContext
-    }
+    var context: Context = applicationContext
 
     @Provides
     fun provideApplicationContext(): Context {

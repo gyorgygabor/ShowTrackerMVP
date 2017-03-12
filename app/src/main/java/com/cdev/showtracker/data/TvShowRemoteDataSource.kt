@@ -7,13 +7,9 @@ import javax.inject.Inject
 
 class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvShowDataSource {
     // TODO Create a base call that will inject this key into every call
-    var apiService: ApiService
-
-    init {
-        this.apiService = apiService
-    }
+    var apiService: ApiService = apiService
 
     override fun getCategories(): Observable<Category> {
-        return apiService.getCategories()
+        return Observable.concat(apiService.getCategoryPopular(), apiService.getCategoryTopRated())
     }
 }

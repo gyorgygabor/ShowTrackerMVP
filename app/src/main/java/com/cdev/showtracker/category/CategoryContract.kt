@@ -14,6 +14,7 @@ class CategoryContract {
         fun showProgressBar()
         fun hideProgressBar()
         fun displayCategories(listOfCategories: List<Category>)
+        fun displayError(error: String)
         fun displayEmptyState()
     }
 }

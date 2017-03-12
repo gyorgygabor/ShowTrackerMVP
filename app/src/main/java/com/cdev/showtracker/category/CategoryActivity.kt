@@ -7,6 +7,7 @@ import android.view.View.VISIBLE
 import com.cdev.showtracker.BaseApplication
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.Category
+import com.cdev.showtracker.util.snack
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import javax.inject.Inject
@@ -32,17 +33,19 @@ class CategoryActivity : AppCompatActivity(), CategoryContract.View {
     }
 
     override fun displayCategories(listOfCategories: List<Category>) {
-
         for (category in listOfCategories) {
             val categoryViewGroup: CategoryViewGroup = CategoryViewGroup(this)
             categoryViewGroup.setData(category)
             container.addView(categoryViewGroup)
         }
-
     }
 
     override fun displayEmptyState() {
 
+    }
+
+    override fun displayError(error: String) {
+        rootView.snack(error)
     }
 
     override fun showProgressBar() {

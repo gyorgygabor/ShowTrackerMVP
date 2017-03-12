@@ -1,16 +1,14 @@
 package com.cdev.showtracker.category
 
 import com.cdev.showtracker.data.TvShowRepository
+import com.cdev.showtracker.model.Category
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.*
 import javax.inject.Inject
 
 class CategoryPresenter @Inject constructor(repository: TvShowRepository) : CategoryContract.Presenter {
     private var view: CategoryContract.View? = null
-    private var repository: TvShowRepository
-
-    init {
-        this.repository = repository
-    }
+    private var repository: TvShowRepository = repository
 
 
     override fun attachView(view: CategoryContract.View) {
@@ -22,13 +20,22 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
     }
 
     override fun loadCategories() {
-        // TODO merge multiple categories into a list, handle unsubscription
         view?.showProgressBar()
+        val categoryList: ArrayList<Category> = ArrayList()
+
         repository.getCategories()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    category ->
-                    view?.displayCategories(arrayListOf(category))
-                }
+                .subscribe(
+                        { category -> categoryList.add(category) },
+                        {
+                            e ->
+                            view?.displayError(e.message ?: "Something went wrong")
+                            view?.hideProgressBar()
+                        },
+                        {
+                            view?.displayCategories(categoryList)
+                            view?.hideProgressBar()
+                        }
+                )
     }
 }
