@@ -23,7 +23,7 @@ class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvSho
                     category.name = categoryNames[2]
                     category // return
                 },
-                apiService.getCategoryLatest().map { category ->
+                apiService.getCategoryAiringToday().map { category ->
                     category.name = categoryNames[3]
                     category // return
                 })

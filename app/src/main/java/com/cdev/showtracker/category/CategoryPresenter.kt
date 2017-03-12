@@ -19,10 +19,10 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
         view?.showProgressBar()
         val categoryList: ArrayList<Category> = ArrayList()
 
-        repository.getCategories(listOf("Popular", "Top rated", "On the Air", "Latest"))
+        repository.getCategories(listOf("Popular", "Top rated", "On the Air", "Airing today"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { category -> categoryList.add(category)},
+                        { category -> categoryList.add(category) },
                         {
                             e ->
                             view?.displayError(e.message)
