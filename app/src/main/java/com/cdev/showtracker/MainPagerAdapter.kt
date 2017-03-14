@@ -1,10 +1,10 @@
 package com.cdev.showtracker
 
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.cdev.showtracker.category.CategoryFragment
+
 
 class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
