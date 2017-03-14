@@ -5,7 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 /**
- * Created by abrah on 3/12/2017.
+ * Created by abraham on 3/12/2017.
  */
 class DetailsPresenter @Inject constructor(private var repository: TvShowRepository) : DetailsContract.Presenter {
 
@@ -44,13 +44,13 @@ class DetailsPresenter @Inject constructor(private var repository: TvShowReposit
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-
-                            tvShowVideo ->
-                            view?.showVideo(tvShowVideo)
+                            (result) ->
+                            view?.showVideo(result.filter { it.type.equals("Trailer", ignoreCase = true) }.first())
                         },
                         {
                             error ->
                             view?.showError(error.message)
+                            //TODO: handle errors
                         })
     }
 }

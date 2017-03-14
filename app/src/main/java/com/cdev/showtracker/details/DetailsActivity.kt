@@ -4,10 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View.VISIBLE
 import com.cdev.showtracker.BaseApplication
 import com.cdev.showtracker.R
+import com.cdev.showtracker.model.ResultDetails
 import com.cdev.showtracker.model.TvShow
-import com.cdev.showtracker.model.TvShowVideo
 import com.cdev.showtracker.util.loadUrl
 import com.cdev.showtracker.util.snack
 import kotlinx.android.synthetic.main.activity_details.*
@@ -47,15 +48,16 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         rootView.snack(error ?: getString(R.string.error_something_went_wrong))
     }
 
-    override fun showVideo(tvShowVideo: TvShowVideo) {
 
-        var tmpResultDetails = tvShowVideo.result.filter { it.type.equals("Trailer", ignoreCase = true) }.first()
+    override fun showVideo(tvShowVideoDetails: ResultDetails) {
 
-        val youTubePrefixForTrailer = "http://www.youtube.com/watch?v="
+        playImageView.visibility = VISIBLE
 
         backDropImageView.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youTubePrefixForTrailer + tmpResultDetails.key)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + tvShowVideoDetails.key)))
+            //TODO find other way to pass the url
         }
+
     }
 
 }
