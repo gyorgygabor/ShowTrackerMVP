@@ -1,6 +1,5 @@
 package com.cdev.showtracker.details
 
-import com.cdev.showtracker.category.CategoryPresenter
 import com.cdev.showtracker.data.TvShowRepository
 import dagger.Module
 import dagger.Provides

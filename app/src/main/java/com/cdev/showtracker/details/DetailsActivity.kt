@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.cdev.showtracker.BaseApplication
 import com.cdev.showtracker.R
 import com.cdev.showtracker.model.TvShow
+import com.cdev.showtracker.model.TvShowVideo
 import com.cdev.showtracker.util.loadUrl
 import com.cdev.showtracker.util.snack
 import kotlinx.android.synthetic.main.activity_details.*
@@ -41,6 +42,11 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
     override fun showError(error: String?) {
         rootView.snack(error ?: getString(R.string.error_something_went_wrong))
+    }
+
+    override fun showVideo(tvShowVideo: TvShowVideo) {
+
+       backDropImageView.setOnClickListener{}
     }
 
 }

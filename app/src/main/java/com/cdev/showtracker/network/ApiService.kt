@@ -2,6 +2,7 @@ package com.cdev.showtracker.network
 
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
+import com.cdev.showtracker.model.TvShowVideo
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,4 +23,7 @@ interface ApiService {
 
     @GET("tv/{tv_id}?api_key=0a416fc6c49f4a04db6e3bd398ef8579&language=en-US")
     fun getTvShowDetails(@Path("tv_id") id: Int): Observable<TvShow>
+
+    @GET("tv/{tv_id}/videos?api_key=0a416fc6c49f4a04db6e3bd398ef8579&language=en-US")
+    fun getTvShowVideo(@Path("tv_id") id: Int): Observable<TvShowVideo>
 }

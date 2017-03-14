@@ -2,6 +2,7 @@ package com.cdev.showtracker.data
 
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
+import com.cdev.showtracker.model.TvShowVideo
 import com.cdev.showtracker.network.ApiService
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -33,5 +34,9 @@ class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvSho
 
     override fun getTvShowDetails(id: Int): Observable<TvShow> {
       return apiService.getTvShowDetails(id)
+    }
+
+    override fun getTvShowVideos(id: Int): Observable<TvShowVideo> {
+    return apiService.getTvShowVideo(id)
     }
 }

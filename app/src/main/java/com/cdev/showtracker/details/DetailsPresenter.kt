@@ -7,10 +7,9 @@ import javax.inject.Inject
 /**
  * Created by abrah on 3/12/2017.
  */
-class DetailsPresenter @Inject constructor(repository: TvShowRepository) : DetailsContract.Presenter {
+class DetailsPresenter @Inject constructor(private var repository: TvShowRepository) : DetailsContract.Presenter {
 
     private var view: DetailsContract.View? = null
-    private var repository: TvShowRepository = repository
 
     override fun attachView(view: DetailsContract.View) {
         this.view = view
@@ -27,14 +26,31 @@ class DetailsPresenter @Inject constructor(repository: TvShowRepository) : Detai
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            tvShow -> view?.showDetails(tvShow)
+                            tvShow ->
+                            view?.showDetails(tvShow)
                         },
                         {
-                            error -> view?.showError(error.message)
+                            error ->
+                            view?.showError(error.message)
                         },
                         {
                             //todo do nothing
                         })
 
+    }
+
+    override fun loadTvShowVideo(id: Int) {
+        repository.getTvShowVideos(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+
+                            tvShowVideo ->
+                            view?.showVideo(tvShowVideo)
+                        },
+                        {
+                            error ->
+                            view?.showError(error.message)
+                        })
     }
 }

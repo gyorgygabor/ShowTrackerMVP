@@ -2,9 +2,14 @@ package com.cdev.showtracker.data
 
 import com.cdev.showtracker.model.Category
 import com.cdev.showtracker.model.TvShow
+import com.cdev.showtracker.model.TvShowVideo
 import io.reactivex.Observable
 
 class TvShowLocalDataSource : TvShowDataSource {
+    override fun getTvShowVideos(id: Int): Observable<TvShowVideo> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getTvShowDetails(id: Int): Observable<TvShow> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
