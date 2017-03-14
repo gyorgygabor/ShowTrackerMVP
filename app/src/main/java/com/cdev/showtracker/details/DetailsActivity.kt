@@ -1,5 +1,7 @@
 package com.cdev.showtracker.details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.cdev.showtracker.BaseApplication
@@ -13,8 +15,8 @@ import javax.inject.Inject
 
 class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
-    companion object{
-        val TV_SHOW_ID_KEY :String = "tvShowId"
+    companion object {
+        val TV_SHOW_ID_KEY: String = "tvShowId"
     }
 
     @Inject
@@ -31,6 +33,7 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
         presenter.attachView(this)
         presenter.loadDetails(intent.getIntExtra(TV_SHOW_ID_KEY, -1))
+        presenter.loadTvShowVideo(intent.getIntExtra(TV_SHOW_ID_KEY, -1))
 
     }
 
@@ -46,7 +49,15 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
     override fun showVideo(tvShowVideo: TvShowVideo) {
 
-       backDropImageView.setOnClickListener{}
+        var tmpResultDetails = tvShowVideo.result.filter { it.type.equals("Trailer", ignoreCase = true) }.first()
+
+        val youTubePrefixForTrailer = "http://www.youtube.com/watch?v="
+
+        backDropImageView.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(youTubePrefixForTrailer + tmpResultDetails.key)))
+        }
     }
 
 }
+
+
