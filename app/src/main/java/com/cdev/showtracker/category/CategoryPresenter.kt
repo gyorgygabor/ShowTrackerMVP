@@ -3,12 +3,14 @@ package com.cdev.showtracker.category
 import com.cdev.showtracker.data.TvShowRepository
 import com.cdev.showtracker.model.Category
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
-class CategoryPresenter @Inject constructor(repository: TvShowRepository) : CategoryContract.Presenter {
+class CategoryPresenter @Inject constructor(private var repository: TvShowRepository) : CategoryContract.Presenter {
+
     private var view: CategoryContract.View? = null
-    private var repository: TvShowRepository = repository
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
     override fun attachView(view: CategoryContract.View) {
@@ -19,23 +21,24 @@ class CategoryPresenter @Inject constructor(repository: TvShowRepository) : Cate
         view?.showProgressBar()
         val categoryList: ArrayList<Category> = ArrayList()
 
-        repository.getCategories(listOf("Popular", "Top rated", "On the Air", "Airing today"))
+        compositeDisposable.add(repository.getCategories(listOf("Popular", "Top rated", "On the Air", "Airing today"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { category -> categoryList.add(category) },
                         {
                             e ->
-                            view?.displayError(e.message)
+                            view?.showError(e.message)
                             view?.hideProgressBar()
                         },
                         {
-                            view?.displayCategories(categoryList)
+                            view?.showCategories(categoryList)
                             view?.hideProgressBar()
                         }
-                )
+                ))
     }
 
     override fun detachView() {
         view = null
+        compositeDisposable.clear()
     }
 }

@@ -44,7 +44,7 @@ class CategoryFragment : Fragment(), CategoryContract.View {
         presenter.loadCategories()
     }
 
-    override fun displayCategories(listOfCategories: List<Category>) {
+    override fun showCategories(listOfCategories: List<Category>) {
         for (category in listOfCategories) {
             val categoryViewGroup: CategoryViewGroup = CategoryViewGroup(container.context)
             categoryViewGroup.setData(category)
@@ -52,11 +52,11 @@ class CategoryFragment : Fragment(), CategoryContract.View {
         }
     }
 
-    override fun displayEmptyState() {
+    override fun showEmptyState() {
 
     }
 
-    override fun displayError(error: String?) {
+    override fun showError(error: String?) {
         rootView.snack(error ?: getString(R.string.error_something_went_wrong))
     }
 

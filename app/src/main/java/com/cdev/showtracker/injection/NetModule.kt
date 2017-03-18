@@ -1,6 +1,7 @@
 package com.cdev.showtracker.injection
 
 import android.content.Context
+import com.cdev.showtracker.BuildConfig
 import com.cdev.showtracker.network.ApiService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -8,20 +9,14 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Cache
-import okhttp3.OkHttpClient
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetModule(baseUrl: String) {
-    var baseUrl: String
-
-    init {
-        this.baseUrl = baseUrl
-    }
+class NetModule(var baseUrl: String) {
 
     @Provides
     @Singleton
@@ -44,6 +39,13 @@ class NetModule(baseUrl: String) {
     fun provideOkhttpClient(cache: Cache): OkHttpClient {
         val client: OkHttpClient.Builder = OkHttpClient.Builder()
         client.cache(cache)
+        client.interceptors().add(Interceptor {
+            chain ->
+            var request: Request = chain.request()
+            val httpUrl: HttpUrl = request.url().newBuilder().addQueryParameter("api_key", BuildConfig.API_KEY).build()
+            request = request.newBuilder().url(httpUrl).build()
+            chain.proceed(request)
+        })
         return client.build()
     }
 

@@ -17,7 +17,7 @@ import javax.inject.Inject
 class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
     companion object {
-        val TV_SHOW_ID_KEY: String = "tvShowId"
+        val KEY_TV_SHOW_ID: String = "tvShowId"
     }
 
     @Inject
@@ -33,8 +33,8 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
                 .inject(this)
 
         presenter.attachView(this)
-        presenter.loadDetails(intent.getIntExtra(TV_SHOW_ID_KEY, -1))
-        presenter.loadTvShowVideo(intent.getIntExtra(TV_SHOW_ID_KEY, -1))
+        presenter.loadDetails(intent.getIntExtra(KEY_TV_SHOW_ID, -1))
+        presenter.loadTvShowVideo(intent.getIntExtra(KEY_TV_SHOW_ID, -1))
 
     }
 
@@ -50,16 +50,16 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
 
 
     override fun showVideo(tvShowVideoDetails: ResultDetails) {
-
         playImageView.visibility = VISIBLE
-
         backDropImageView.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + tvShowVideoDetails.key)))
-            //TODO find other way to pass the url
         }
-
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
+    }
 }
 
 

@@ -5,7 +5,7 @@ import com.cdev.showtracker.BaseView
 import com.cdev.showtracker.model.Category
 
 
-class CategoryContract {
+interface CategoryContract {
     interface Presenter : BasePresenter<View> {
         fun loadCategories()
     }
@@ -13,8 +13,8 @@ class CategoryContract {
     interface View : BaseView {
         fun showProgressBar()
         fun hideProgressBar()
-        fun displayCategories(listOfCategories: List<Category>)
-        fun displayError(error: String?)
-        fun displayEmptyState()
+        fun showCategories(listOfCategories: List<Category>)
+        fun showError(error: String?)
+        fun showEmptyState()
     }
 }

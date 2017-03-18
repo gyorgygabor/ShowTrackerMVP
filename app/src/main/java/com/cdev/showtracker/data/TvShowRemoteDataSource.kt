@@ -5,12 +5,10 @@ import com.cdev.showtracker.model.TvShow
 import com.cdev.showtracker.model.TvShowVideo
 import com.cdev.showtracker.network.ApiService
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
-class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvShowDataSource {
-
-    // TODO Create a base call that will inject this key into every call
-    var apiService: ApiService = apiService
+class TvShowRemoteDataSource @Inject constructor(var apiService: ApiService) : TvShowDataSource {
 
     override fun getCategories(categoryNames: List<String>): Observable<Category> {
         return Observable.concat(
@@ -32,11 +30,11 @@ class TvShowRemoteDataSource @Inject constructor(apiService: ApiService) : TvSho
                 })
     }
 
-    override fun getTvShowDetails(id: Int): Observable<TvShow> {
-      return apiService.getTvShowDetails(id)
+    override fun getTvShowDetails(id: Int): Single<TvShow> {
+        return apiService.getTvShowDetails(id)
     }
 
-    override fun getTvShowVideos(id: Int): Observable<TvShowVideo> {
-    return apiService.getTvShowVideo(id)
+    override fun getTvShowVideos(id: Int): Single<TvShowVideo> {
+        return apiService.getTvShowVideo(id)
     }
 }

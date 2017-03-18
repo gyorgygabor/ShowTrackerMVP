@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.cdev.showtracker.R
 import com.cdev.showtracker.details.DetailsActivity
-import com.cdev.showtracker.details.DetailsActivity.Companion.TV_SHOW_ID_KEY
+import com.cdev.showtracker.details.DetailsActivity.Companion.KEY_TV_SHOW_ID
 import com.cdev.showtracker.model.TvShow
 import com.cdev.showtracker.network.ApiConfig
 import com.squareup.picasso.Picasso
@@ -28,7 +28,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         holder?.itemView?.setOnClickListener {
 
             val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
-            intent.putExtra(TV_SHOW_ID_KEY, tvShowList[position].id)
+            intent.putExtra(KEY_TV_SHOW_ID, tvShowList[position].id)
             holder.itemView?.context?.startActivity(intent)
 
         }
