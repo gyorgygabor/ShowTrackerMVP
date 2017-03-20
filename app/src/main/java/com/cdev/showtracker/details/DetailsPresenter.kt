@@ -46,10 +46,12 @@ class DetailsPresenter @Inject constructor(private var repository: TvShowReposit
                     }
 
                     override fun onSuccess(value: TvShowVideo?) {
-                        // TODO check crash
-                        value?.result?.filter { it.type.equals("Trailer", ignoreCase = true) }?.first()?.let { view?.showVideo(it) }
+                        val videoResultDetails = value?.result?.filter { it.type.equals("Trailer", ignoreCase = true) }?.firstOrNull()
+                        videoResultDetails?.let { view?.showVideo(it) }
                     }
                 }))
+
+
     }
 
     override fun detachView() {

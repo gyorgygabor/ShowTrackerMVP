@@ -68,8 +68,8 @@ class CategoryFragment : Fragment(), CategoryContract.View {
         progressBar.visibility = GONE
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         presenter.detachView()
     }
 }
