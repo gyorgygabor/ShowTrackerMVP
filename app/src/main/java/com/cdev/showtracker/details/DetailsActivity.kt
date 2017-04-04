@@ -12,6 +12,7 @@ import com.cdev.showtracker.model.TvShow
 import com.cdev.showtracker.util.loadUrl
 import com.cdev.showtracker.util.snack
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.details_header_layout.*
 import javax.inject.Inject
 
 class DetailsActivity : AppCompatActivity(), DetailsContract.View {
@@ -36,6 +37,10 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         presenter.loadDetails(intent.getIntExtra(KEY_TV_SHOW_ID, -1))
         presenter.loadTvShowVideo(intent.getIntExtra(KEY_TV_SHOW_ID, -1))
 
+        toolbarBackImageView.setOnClickListener {
+            finish()
+        }
+
     }
 
     override fun showDetails(tvShow: TvShow) {
@@ -48,10 +53,9 @@ class DetailsActivity : AppCompatActivity(), DetailsContract.View {
         rootView.snack(error ?: getString(R.string.error_something_went_wrong))
     }
 
-
     override fun showVideo(tvShowVideoDetails: ResultDetails) {
         playImageView.visibility = VISIBLE
-        backDropImageView.setOnClickListener {
+        playImageView.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + tvShowVideoDetails.key)))
         }
     }

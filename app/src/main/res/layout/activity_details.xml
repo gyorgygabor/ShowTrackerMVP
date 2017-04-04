@@ -47,7 +47,13 @@
                     android:visibility="gone"
                     app:layout_collapseMode="parallax" />
 
+
             </RelativeLayout>
+
+            <include
+                android:id="@+id/detailsToolbar"
+                layout="@layout/details_header_layout"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mainToolbar"
